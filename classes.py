@@ -14,7 +14,7 @@ class Tela:
     dirBkp = 'F:/bkp'
     
     def __init__(self):
-        self.image = PIL.Image.open("img/image.png")
+        self.image = PIL.Image.open("img/logo.png")
         self.menu = (item('abrir', self.inicio), item('sair', self.sair))
         self.icon = pystray.Icon("backup", self.image, "backup", self.menu)
 
