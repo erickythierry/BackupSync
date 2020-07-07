@@ -1,7 +1,16 @@
 
-um obrigdo ao  [JoseRAGarcia/backup_restore](https://github.com/JoseRAGarcia/backup_restore)
-# backup_restore
-Um software desenvolvido para facilitar a vida dos técnicos de TI e usuários de empresas que trabalham com computadores em domínio. Há uma dificuldade em restaurar o backup dos usuários de domínio, pois os mesmos só são criados a partir do momento em que a pessoa loga no Windows. Logo, o técnico de TI precisa estar presente nesse momento para que o backup seja restaurado de forma segura e nas pastas corretas de destino. Com o Backup Restore, o próprio usuário pode restaurar esse backup, uma vez que o software reconhece o login do usuário e procura em um repositório pré-determinado se há algum backup disponível para ele. Havendo, ele permite que o backup seja restaurado e, ao fim do processo, modifica o nome do diretório de onde o backup foi extraído para que não haja a possibilidade do usuário executar o software uma segunda vez e acabar substituindo os arquivos já atualizados pelos arquivos antigos guardados no backup. Ao não localizar mais a pasta de origem, o software apenas informa que não há um backup disponível para aquele login.
+um obrigdo ao [JoseRAGarcia/backup_restore](https://github.com/JoseRAGarcia/backup_restore)
+# Backup Sync
+Um software em desenvolvimento, que visa auxiliar na execução de backups de dados em empresas (ou usuarios pessoais).
 
-# backup_restore
-A software developed to make life easier for IT technicians and users of companies that work with computers in a domain. There is a difficulty in restoring the backup of domain users, as they are only created from the moment the person logs into Windows. Therefore, the IT technician must be present at that time so that the backup is restored safely and in the correct destination folders. With Backup Restore, the user himself can restore this backup, since the software recognizes the user's login and searches a predetermined repository if there is any backup available for that user. If so, it allows the backup to be restored and, at the end of the process, changes the name of the directory from which the backup was extracted so that there is no possibility for the user to run the software a second time and end up replacing the files already updated with the files old ones backed up. When you no longer find the source folder, the software only informs you that there is no backup available for that login.
+# Funcionalidades atuais!
+
+  - Efetuar Backup local da pasta pessoal do usuario em outro disco.
+  - Restaurar o backup feito anteriormente de volta para o destino.
+  
+# Funções Futuras!
+
+  - Efetuar a syncronia de dados programada (dia e hora especificado pelo usuario)
+  - Selecionar quais diretorios devem ser cobertos pelo backup (e quais devem ser ignorados)
+  - Enviar o backup para nuvem (Google Drive - através do Rclone)
+
