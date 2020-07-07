@@ -1,3 +1,5 @@
+
+um obrigdo ao  [JoseRAGarcia/backup_restore](https://github.com/JoseRAGarcia/backup_restore)
 # backup_restore
 Um software desenvolvido para facilitar a vida dos técnicos de TI e usuários de empresas que trabalham com computadores em domínio. Há uma dificuldade em restaurar o backup dos usuários de domínio, pois os mesmos só são criados a partir do momento em que a pessoa loga no Windows. Logo, o técnico de TI precisa estar presente nesse momento para que o backup seja restaurado de forma segura e nas pastas corretas de destino. Com o Backup Restore, o próprio usuário pode restaurar esse backup, uma vez que o software reconhece o login do usuário e procura em um repositório pré-determinado se há algum backup disponível para ele. Havendo, ele permite que o backup seja restaurado e, ao fim do processo, modifica o nome do diretório de onde o backup foi extraído para que não haja a possibilidade do usuário executar o software uma segunda vez e acabar substituindo os arquivos já atualizados pelos arquivos antigos guardados no backup. Ao não localizar mais a pasta de origem, o software apenas informa que não há um backup disponível para aquele login.
 
