@@ -2,29 +2,23 @@ from tkinter import *
 from tkinter import ttk
 import threading
 import os
+import time
+from pystray import MenuItem as item
+import pystray
+import PIL.Image
 
 class Tela:
     imagePath = 'img/bk.png'
+    login = os.getlogin()
+    bkp = login + '.old'
+    dirBkp = 'F:/bkp'
     
-
     def __init__(self):
-        self.root = Tk()
-        self.root.iconbitmap('img/logo.ico')
-        self.root.geometry('300x300+300+100')
-        self.root.maxsize(300, 300)
-        self.root.title('Backup Restore - v_1.0')
-        self.photo = PhotoImage(file=self.imagePath)
-        self.w = Label(self.root, image=self.photo)
-        self.w.pack()
-        #self.lblBkp = Label(self.root, text='Backup Restore', font=('arial', 30), fg='red', relief='groove')
-        #self.lblBkp.place(relx=0.5, rely=0.1, anchor=CENTER)
-        self.btnStart = Button(self.root, height='2', width='10', text='Começar', font=('arial', 10), command=self.consultaBkp)
-        self.btnStart.place(relx=0.5, rely=0.5, anchor=CENTER)
-        self.btnSair = Button(self.root, height='2', width = '10',text='Sair', font=('arial', 10), command=self.root.destroy)
-        self.btnSair.place(relx=0.5, rely=0.7, anchor=CENTER)        
-        self.lblFim = Label(self.root, text='', font=('arial', 10), fg='red', relief='groove')
+        self.image = PIL.Image.open("img/image.png")
+        self.menu = (item('abrir', self.inicio), item('sair', self.sair))
+        self.icon = pystray.Icon("backup", self.image, "backup", self.menu)
 
-
+    
     def copiando(self):      
         t3 = threading.Thread(target=self.pb)
         t3.start()
@@ -34,6 +28,24 @@ class Tela:
         os.renames(os.path.join(self.dirBkp, self.bkp), os.path.join(self.dirBkp, self.login + '.bkpRestaurado'))
         self.fim()        
         
+    def inicio(self):
+        self.root = Tk()
+        self.root.iconbitmap('img/logo.ico')
+        self.root.geometry('300x300+300+100')
+        self.root.maxsize(300, 300)
+        self.root.title('Backup Restore - v_1.0')
+        self.photo = PhotoImage(file=self.imagePath)
+        self.w = Label(self.root, image=self.photo)
+        self.w.pack()
+
+        self.btnStart = Button(self.root, height='2', width='10', text='Fazer Backup', font=('arial', 10), command=self.fazerBkp)
+        self.btnStart.place(relx=0.5, rely=0.3, anchor=CENTER)
+        self.btnStart = Button(self.root, height='2', width='10', text='Recuperar', font=('arial', 10), command=self.consultaBkp)
+        self.btnStart.place(relx=0.5, rely=0.5, anchor=CENTER)
+        self.btnSair = Button(self.root, height='2', width = '10',text='Sair', font=('arial', 10), command=self.root.destroy)
+        self.btnSair.place(relx=0.5, rely=0.7, anchor=CENTER)
+        self.lblFim = Label(self.root, text='', font=('arial', 10), fg='red', relief='groove')
+        self.root.mainloop()
 
     def pb(self):
         self.progress = ttk.Progressbar(self.root, orient='horizontal', length=280, mode='indeterminate')
@@ -41,10 +53,18 @@ class Tela:
         self.progress.start(10)
                
 
+    def fazBkp(self):
+        t5 = threading.Thread(target=self.pb)
+        t5.start()
+        self.lblFim['text']='fazendo Backup'
+        self.lblFim.place(relx=0.5, rely=0.925, anchor=CENTER)
+        self.copy = os.system(f'robocopy.exe %userprofile% {os.path.join(self.dirBkp, self.bkp)}\ /s /e')
+        
+        self.fim()   
+
+
     def consultaBkp(self):
-        self.login = os.getlogin()
-        self.bkp = self.login + '.old'
-        self.dirBkp = 'C:/Uteis/bkp'
+        
         self.bkpDisponiveis = os.listdir(self.dirBkp)
 
         if self.bkp in self.bkpDisponiveis:
@@ -80,7 +100,11 @@ class Tela:
         self.rootAlert1.destroy()        
         t1 = threading.Thread(target=self.copiando)
         t1.start()      
-            
+
+    def fazerBkp(self):  
+        t4 = threading.Thread(target=self.fazBkp)
+        t4.start()
+
             
     def fim(self):
         self.progress['mode']='determinate'
@@ -88,3 +112,9 @@ class Tela:
         self.progress['value'] = 100
         self.lblFim['text']='Backup Finalizado'
 
+    def sair(self):
+        self.icon.stop()
+        try:
+           self.root.destroy
+        except Exception as e:
+           pass

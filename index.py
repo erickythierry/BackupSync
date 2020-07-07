@@ -2,4 +2,4 @@
 import classes
 
 root = classes.Tela()
-root.root.mainloop()
+root.icon.run()
